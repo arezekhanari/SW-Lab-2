@@ -1,18 +1,21 @@
 import edu.sharif.selab.models.EmailMessage;
 import edu.sharif.selab.models.Message;
 import edu.sharif.selab.models.SmsMessage;
+import edu.sharif.selab.models.TelegramMessage;
 import edu.sharif.selab.services.EmailMessageService;
 import edu.sharif.selab.services.MessageService;
 import edu.sharif.selab.services.SmsMessageService;
+import edu.sharif.selab.services.TelegramMessageService;
 
 import java.util.Scanner;
 
 public class Main {
     public static final Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
         System.out.println("Hello and Welcome to SE Lab Messenger.");
-        int userAnswer=0;
-        do{
+        int userAnswer = 0;
+        do {
             Message message = null;
             MessageService messageService;
             String source;
@@ -21,15 +24,16 @@ public class Main {
 
             System.out.println("In order to send Sms message enter 1");
             System.out.println("In order to send Email message enter 2");
+            System.out.println("In order to send Telegram message enter 3");
             System.out.println("In order to Exit, Enter 0");
 
-            userAnswer= scanner.nextInt();
+            userAnswer = scanner.nextInt();
 
-            if(userAnswer==0){
+            if (userAnswer == 0) {
                 break;
             }
 
-            switch (userAnswer){
+            switch (userAnswer) {
                 case 1:
                     SmsMessage smsMessage = new SmsMessage();
                     System.out.print("Enter source phone : ");
@@ -56,16 +60,32 @@ public class Main {
                     emailMessage.setContent(content);
                     message = emailMessage;
                     break;
+                case 3:
+                    TelegramMessage telegramMessage = new TelegramMessage();
+                    System.out.print("Enter source Telegram ID : ");
+                    source = scanner.next();
+                    telegramMessage.setSourceTelegramId(source);
+                    System.out.print("Enter target Telegram ID : ");
+                    target = scanner.next();
+                    telegramMessage.setTargetTelegramId(target);
+                    System.out.println("Write Your Message : ");
+                    content = scanner.next();
+                    telegramMessage.setContent(content);
+                    message = telegramMessage;
+                    break;
             }
 
-            if(message instanceof SmsMessage){
+            if (message instanceof SmsMessage) {
                 messageService = new SmsMessageService();
                 messageService.sendSmsMessage((SmsMessage) message);
-            }else if(message instanceof EmailMessage){
+            } else if (message instanceof EmailMessage) {
                 messageService = new EmailMessageService();
                 messageService.sendEmailMessage((EmailMessage) message);
+            } else if (message instanceof TelegramMessage) {
+                messageService = new TelegramMessageService();
+                messageService.sendTelegramMessage((TelegramMessage) message);
             }
 
-        }while (true);
+        } while (true);
     }
 }
