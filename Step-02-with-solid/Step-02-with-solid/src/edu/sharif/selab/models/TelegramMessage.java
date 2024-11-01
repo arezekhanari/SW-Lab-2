@@ -1,22 +1,8 @@
 package edu.sharif.selab.models;
 
 public class TelegramMessage extends Message {
-    private String sourceTelegramId;
-    private String targetTelegramId;
+    private String telegramId;
 
-    public String getSourceTelegramId() {
-        return sourceTelegramId;
-    }
-
-    public void setSourceTelegramId(String sourceTelegramId) {
-        this.sourceTelegramId = sourceTelegramId;
-    }
-
-    public String getTargetTelegramId() {
-        return targetTelegramId;
-    }
-
-    public void setTargetTelegramId(String targetTelegramId) {
-        this.targetTelegramId = targetTelegramId;
-    }
+    public String getTelegramId() { return telegramId; }
+    public void setTelegramId(String telegramId) { this.telegramId = telegramId; }
 }
