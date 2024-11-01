@@ -6,36 +6,19 @@ import edu.sharif.selab.models.TelegramMessage;
 
 import java.util.regex.Pattern;
 
-public class TelegramMessageService implements MessageService {
-    @Override
-    public void sendSmsMessage(SmsMessage smsMessage) {
-
-    }
-
-    @Override
-    public void sendEmailMessage(EmailMessage emailMessage) {
-
-    }
-
+public class TelegramMessageService implements TelegramService {
     @Override
     public void sendTelegramMessage(TelegramMessage telegramMessage) {
-        if (validateTelegramID(telegramMessage.getTargetTelegramId()) &&
-                validateTelegramID(telegramMessage.getSourceTelegramId())) {
-            System.out.println("Sending a Telegram Message from " + telegramMessage.getSourceTelegramId() + " to " +
-                    telegramMessage.getTargetTelegramId() + " with content : " + telegramMessage.getContent());
+        if (validateTelegramId(telegramMessage.getTelegramId())) {
+            // Logic to send Telegram message
+            System.out.println("Telegram message sent to: " + telegramMessage.getTelegramId());
         } else {
-            throw new IllegalArgumentException("Telegram ID is Not Correct!");
+            System.out.println("Invalid Telegram ID.");
         }
     }
 
-    public boolean validateTelegramID(String telegramID) {
-        // Regular expression pattern for validating telegram id
-        String telegramIDRegex = "^https://t.me/[a-zA-Z0-9_.+-]+$";
-
-        // Compile the pattern into a regex Pattern object
-        Pattern pattern = Pattern.compile(telegramIDRegex);
-
-        // Check if the telegram ID string matches the regex pattern
-        return pattern.matcher(telegramID).matches();
+    private boolean validateTelegramId(String telegramId) {
+        // Example validation for telegram ID, assuming it should be numeric
+        return telegramId != null && telegramId.matches("^[0-9]+$");
     }
 }
