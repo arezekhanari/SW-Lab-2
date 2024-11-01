@@ -3,7 +3,6 @@ import edu.sharif.selab.models.Message;
 import edu.sharif.selab.models.SmsMessage;
 import edu.sharif.selab.models.TelegramMessage;
 import edu.sharif.selab.services.EmailMessageService;
-import edu.sharif.selab.services.MessageService;
 import edu.sharif.selab.services.SmsMessageService;
 import edu.sharif.selab.services.TelegramMessageService;
 
